@@ -1,0 +1,81 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String    @id @default(uuid())
+  googleId      String    @unique
+  email         String    @unique
+  name          String
+  avatarUrl     String?
+  googleAccessToken  String?
+  googleRefreshToken String?
+  isPro         Boolean   @default(false)
+  
+  // Streak & Platform fields
+  currentStreak  Int       @default(0)
+  lastActiveDate DateTime?
+  leetcodeHandle String?
+  githubHandle   String?
+  codeforcesHandle String?
+  gfgHandle        String?
+  codechefHandle   String?
+  hackerrankHandle String?
+
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+  
+  courses       Course[]
+  tasks         Task[]
+}
+
+model Course {
+  id              String         @id @default(uuid())
+  userId          String
+  user            User           @relation(fields: [userId], references: [id])
+  platform        String         @default("youtube") // e.g., youtube
+  playlistUrl     String?
+  startDate       DateTime
+  workingDays     Int[]          // Array of integers 0 (Sun) - 6 (Sat) denoting working days
+  status          String         @default("active")  // "active", "completed"
+  createdAt       DateTime       @default(now())
+  
+  lectureItems    LectureItem[]
+}
+
+model LectureItem {
+  id              String    @id @default(uuid())
+  courseId        String
+  course          Course    @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  assignedDate    DateTime
+  videoUrl        String?
+  title           String?
+  description     String?
+  isCompleted     Boolean   @default(false)
+  
+  // Natively saving to Drive, but keeping a flag or link
+  driveNoteLink   String?   
+}
+
+model Task {
+  id              String    @id @default(uuid())
+  userId          String
+  user            User      @relation(fields: [userId], references: [id])
+  title           String
+  description     String?
+  status          String    @default("todo") // "todo", "progress", "completed"
+  order           Int       @default(0) // For Kanban dragging
+  dueDate         DateTime?
+  link            String?
+  isCompleted     Boolean   @default(false)
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+}
