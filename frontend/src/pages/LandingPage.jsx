@@ -47,24 +47,22 @@ const LandingPage = () => {
 
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight mb-8" style={{ letterSpacing: '-0.03em' }}>
                     Plan your learning.<br />
-                    <span className="opacity-40">Master your craft.</span>
+                    <span className="opacity-40">Master your Skills.</span>
                 </h1>
 
                 <div className="max-w-3xl mb-12 space-y-4">
                     <p className="text-xl md:text-2xl font-medium leading-relaxed" style={{ opacity: 0.9 }}>
                         Masternow is a personal productivity and learning management tool. 
                     </p>
-                    <p className="text-base md:text-lg font-medium leading-relaxed" style={{ opacity: 0.7 }}>
-                        We allow you to transform sprawling YouTube playlists into structured daily courses. Track your learning progress through interactive dashboards and automatically sync your study notes to your personal Google Drive, while reserving time for tasks securely pushed to your Google Calendar.
-                    </p>
+                   
                 </div>
 
                 <div className="flex gap-4">
 
-                    <Link to="/auth/google" className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                    <a href="http://localhost:5001/auth/google" className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
                     Start Organizing Now
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
-                </Link>
+                </a>
 
                 {/* <button onClick={() => setShowTutorial(true)} className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl bg-white text-black dark:bg-[#1a1a1a] dark:text-white border border-gray-200 dark:border-gray-800">
                     Watch Tutorial
