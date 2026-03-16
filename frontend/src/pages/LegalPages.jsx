@@ -15,8 +15,12 @@ export const PrivacyPolicy = () => {
                 
                 <div className="space-y-6 text-gray-700 dark:text-gray-300 leading-relaxed">
                     <section>
+                        <h2 className="text-xl font-bold text-black dark:text-white mb-3">Introduction</h2>
+                        <p className="mb-4">Welcome to Masternow's Privacy Policy. This document explains how we collect, use, and protect your information when you use our website (masternow.in) and our web application.</p>
+                    </section>
+                    <section>
                         <h2 className="text-xl font-bold text-black dark:text-white mb-3">1. Information We Collect</h2>
-                        <p>Masternow uses Google OAuth to authenticate users. We only collect the minimal information required to provide our service: your name, email address, and profile picture provided by Google.</p>
+                        <p>Masternow uses Google OAuth to authenticate users. We only collect the minimal information required to provide our service: your name, email address, and profile picture provided by Google. We store this in our database to identify your account across sessions.</p>
                     </section>
 
                     <section>

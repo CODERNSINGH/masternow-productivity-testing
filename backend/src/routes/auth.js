@@ -27,9 +27,23 @@ router.get(
         // Generate JWT token for our backend API
         const token = generateToken(req.user.user);
 
+        // Determine frontend URL - support both local and production
+        let frontendURL = process.env.FRONTEND_URL || 'https://masternow.in';
+        
+        // If there's a state parameter with frontend URL (optional), use that
+        if (req.query.state) {
+            try {
+                const state = JSON.parse(req.query.state);
+                if (state.frontendUrl) {
+                    frontendURL = state.frontendUrl;
+                }
+            } catch (e) {
+                // Ignore parse errors
+            }
+        }
+
         // Redirect to frontend with token in URL (or set as cookie)
-        // Assuming frontend runs on exactly localhost:5174 for development
-        res.redirect(`http://localhost:5174/auth/callback?token=${token}`);
+        res.redirect(`${frontendURL}/auth/callback?token=${token}`);
     }
 );
 

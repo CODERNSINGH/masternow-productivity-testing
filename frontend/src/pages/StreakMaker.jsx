@@ -22,7 +22,7 @@ const StreakMaker = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
-                const res = await fetch('http://localhost:5001/api/streak', {
+                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -65,7 +65,7 @@ const StreakMaker = () => {
                 hackerrankHandle: handles.hackerrank || undefined,
             };
 
-            const res = await fetch('http://localhost:5001/api/streak/handles', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak/handles`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -78,7 +78,7 @@ const StreakMaker = () => {
                 setMessage({ type: 'success', text: 'Handles connected successfully!' });
 
                 // Refetch streak data after update to reflect new connections
-                const newRes = await fetch('http://localhost:5001/api/streak', {
+                const newRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (newRes.ok) {

@@ -61,7 +61,7 @@ const ToDo = () => {
             const token = localStorage.getItem('token');
             if (!token) return;
 
-            const res = await fetch('http://localhost:5001/api/tasks', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks`, {
                 headers: { 'Authorization': `Bearer ${token}` }
             });
             if (res.ok) {
@@ -94,7 +94,7 @@ const ToDo = () => {
             const dateTimeString = `${newTask.date}T${newTask.time}:00`;
             const isoDueDate = new Date(dateTimeString).toISOString();
 
-            const res = await fetch('http://localhost:5001/api/tasks', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ const ToDo = () => {
             if (res.ok) {
                 // Sync to Google Calendar quietly
                 try {
-                    await fetch('http://localhost:5001/api/calendar/add-event', {
+                    await fetch(`https://masternow-productivity-testing.onrender.com/api/calendar/add-event`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -194,7 +194,7 @@ const ToDo = () => {
         // Backend Update
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5001/api/tasks/${draggedTaskId}`, {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks/${draggedTaskId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -228,7 +228,7 @@ const ToDo = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5001/api/tasks/${taskId}`, {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });

@@ -22,7 +22,7 @@ const AddCourse = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) return;
-            const res = await fetch('http://localhost:5001/api/courses', { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 setAllCourses(data);
@@ -40,7 +40,7 @@ const AddCourse = () => {
         if (!window.confirm("Are you sure you want to delete this course and all its progress?")) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`http://localhost:5001/api/courses/${courseId}`, {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/${courseId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -89,7 +89,7 @@ const AddCourse = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5001/api/youtube/fetch-playlist', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/youtube/fetch-playlist`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -141,7 +141,7 @@ const AddCourse = () => {
         try {
             setIsLoading(true);
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5001/api/youtube/save-course', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/youtube/save-course`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,

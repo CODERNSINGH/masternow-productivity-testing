@@ -21,7 +21,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
             setIsLoading(true);
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch(`http://localhost:5001/api/courses/lecture/${id}`, {
+                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -29,7 +29,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                     setLecture(data);
 
                     if (!courseDays) {
-                        const coursesRes = await fetch('http://localhost:5001/api/courses', {
+                        const coursesRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         if (coursesRes.ok) {
@@ -75,7 +75,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
         try {
             setIsSaving(true);
             const token = localStorage.getItem('token');
-            const res = await fetch('http://localhost:5001/api/drive/upload-note', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-note`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
             formData.append('file', file);
             formData.append('lectureItemId', id);
 
-            const res = await fetch('http://localhost:5001/api/drive/upload-file', {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-file`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -134,7 +134,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
         try {
             const token = localStorage.getItem('token');
             const newStatus = !lecture.isCompleted;
-            const res = await fetch(`http://localhost:5001/api/courses/lecture/${id}/complete`, {
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${id}/complete`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,

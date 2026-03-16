@@ -18,7 +18,7 @@ const Settings = () => {
                 if (!token) return;
 
                 // Example: Fetch user details to see if google access token exists
-                const res = await fetch('http://localhost:5001/api/streak', { // Re-using streak route just to get user data if it has tokens
+                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, { // Re-using streak route just to get user data if it has tokens
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 

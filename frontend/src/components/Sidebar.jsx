@@ -15,7 +15,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const res = await fetch('http://localhost:5001/auth/me', {
+                    const res = await fetch(`https://masternow-productivity-testing.onrender.com/auth/me`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                     if (res.ok) {
@@ -90,7 +90,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                         <div className="min-w-0 flex-1">
                             <h4 className="font-semibold text-sm truncate">{user?.name || 'Not Logged In'}</h4>
                             {!user && (
-                                <a href="http://localhost:5001/auth/google" className="text-xs text-blue-500 hover:underline inline-block">
+                                <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="text-xs text-blue-500 hover:underline inline-block">
                                     Sign in with Google
                                 </a>
                             )}

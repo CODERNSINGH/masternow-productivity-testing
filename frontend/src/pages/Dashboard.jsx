@@ -20,7 +20,7 @@ const Dashboard = () => {
             const token = localStorage.getItem('token');
             if (token) setIsLoggedIn(true);
             if (!token) return;
-            const res = await fetch('http://localhost:5001/api/courses', { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 if (data.length > 0) {
@@ -76,7 +76,7 @@ const Dashboard = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) return;
-            const res = await fetch('http://localhost:5001/api/streak', { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 setStreakCount(data.streakCount || 0);
@@ -131,7 +131,7 @@ const Dashboard = () => {
             });
 
             // API Call
-            await fetch(`http://localhost:5001/api/courses/lecture/${lectureId}/complete`, {
+            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${lectureId}/complete`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({ isCompleted: newStatus })
@@ -158,7 +158,7 @@ const Dashboard = () => {
             formData.append('file', file);
 
             // 1. Upload to drive
-            const uploadRes = await fetch('http://localhost:5001/api/drive/upload-file', {
+            const uploadRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-file`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -167,7 +167,7 @@ const Dashboard = () => {
             const uploadData = await uploadRes.json();
 
             // 2. Create ad-hoc lecture
-            await fetch('http://localhost:5001/api/courses/lecture', {
+            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -193,7 +193,7 @@ const Dashboard = () => {
         if (!linkInputUrl.trim() || !courseId) return;
         try {
             const token = localStorage.getItem('token');
-            await fetch('http://localhost:5001/api/courses/lecture', {
+            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -234,7 +234,7 @@ const Dashboard = () => {
                 <div className="flex justify-center flex-col items-center py-20 opacity-90 rounded-sm border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
                     <h2 className="text-xl font-bold mb-2">Welcome to Masternow</h2>
                     <p className="mb-6 text-sm opacity-70">Please log in to view your courses and daily tasks.</p>
-                    <a href="http://localhost:5001/auth/google" className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
+                    <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
                         Log in with Google
                     </a>
                 </div>

@@ -9,7 +9,7 @@ router.use(requireAuth);
 const oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_CLIENT_ID,
     process.env.GOOGLE_CLIENT_SECRET,
-    'http://localhost:5001/auth/google/callback'
+    process.env.GOOGLE_CALLBACK_URL || 'https://masternow-productivity-testing.onrender.com/auth/google/callback'
 );
 
 // Add event to Google Calendar

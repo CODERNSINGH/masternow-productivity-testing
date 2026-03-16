@@ -47,19 +47,19 @@ const LandingPage = () => {
 
                 <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight mb-8" style={{ letterSpacing: '-0.03em' }}>
                     Plan your learning.<br />
-                    <span className="opacity-40">Master your Skills.</span>
+                    <span className="opacity-40">Masternow.</span>
                 </h1>
 
                 <div className="max-w-3xl mb-12 space-y-4">
                     <p className="text-xl md:text-2xl font-medium leading-relaxed" style={{ opacity: 0.9 }}>
-                        Masternow is a personal productivity and learning management tool. 
+                        Masternow is a personal productivity and learning management tool that helps you organize YouTube tutorials into structured courses, sync study schedules with Google Calendar, and securely save Markdown notes directly to your Google Drive. We turn chaotic playlists into a focused syllabus.
                     </p>
                    
                 </div>
 
                 <div className="flex gap-4">
 
-                    <a href="http://localhost:5001/auth/google" className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                    <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
                     Start Organizing Now
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </a>
@@ -144,6 +144,7 @@ const LandingPage = () => {
                         <Link to="/about" className="hover:opacity-100 transition-opacity">About Us</Link>
                         <Link to="/contact" className="hover:opacity-100 transition-opacity">Contact Us</Link>
                         <Link to="/privacy" className="hover:opacity-100 transition-opacity">Privacy Policy</Link>
+                        <Link to="/terms" className="hover:opacity-100 transition-opacity">Terms of Service</Link>
                     </div>
                 </div>
             </footer>
