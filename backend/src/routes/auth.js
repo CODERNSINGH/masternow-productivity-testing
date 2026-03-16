@@ -6,17 +6,26 @@ const router = express.Router();
 // Initialize Google OAuth login
 router.get(
     '/google',
-    passport.authenticate('google', {
-        scope: [
-            'profile',
-            'email',
-            'https://www.googleapis.com/auth/calendar.events',
-            'https://www.googleapis.com/auth/drive.file',
-            'https://www.googleapis.com/auth/youtube.readonly'
-        ],
-        accessType: 'offline', // Request refresh token
-        prompt: 'consent' // Force to get refresh token
-    })
+    (req, res, next) => {
+        // We will pass the state parameter to passport so it is sent to Google.
+        // Google will return this exact state parameter to the callback URL.
+        const stateStr = req.query.frontendUrl ? JSON.stringify({ frontendUrl: req.query.frontendUrl }) : undefined;
+        // encode it in base64 to ensure it survives the redirect unscathed
+        const stateBase64 = stateStr ? Buffer.from(stateStr).toString('base64') : undefined;
+
+        passport.authenticate('google', {
+            scope: [
+                'profile',
+                'email',
+                'https://www.googleapis.com/auth/calendar.events',
+                'https://www.googleapis.com/auth/drive.file',
+                'https://www.googleapis.com/auth/youtube.readonly'
+            ],
+            accessType: 'offline', // Request refresh token
+            prompt: 'consent', // Force to get refresh token
+            state: stateBase64
+        })(req, res, next);
+    }
 );
 
 // Google OAuth callback
@@ -30,15 +39,16 @@ router.get(
         // Determine frontend URL - support both local and production
         let frontendURL = process.env.FRONTEND_URL || 'https://masternow.in';
         
-        // If there's a state parameter with frontend URL (optional), use that
+        // Recover state
         if (req.query.state) {
             try {
-                const state = JSON.parse(req.query.state);
-                if (state.frontendUrl) {
-                    frontendURL = state.frontendUrl;
+                const decodedStateStr = Buffer.from(req.query.state, 'base64').toString('ascii');
+                const stateObj = JSON.parse(decodedStateStr);
+                if (stateObj.frontendUrl) {
+                    frontendURL = stateObj.frontendUrl;
                 }
             } catch (e) {
-                // Ignore parse errors
+                console.error("Failed to parse state", e);
             }
         }
 

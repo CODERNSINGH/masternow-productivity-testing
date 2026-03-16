@@ -90,7 +90,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                         <div className="min-w-0 flex-1">
                             <h4 className="font-semibold text-sm truncate">{user?.name || 'Not Logged In'}</h4>
                             {!user && (
-                                <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="text-xs text-blue-500 hover:underline inline-block">
+                                <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="text-xs text-blue-500 hover:underline inline-block">
                                     Sign in with Google
                                 </a>
                             )}

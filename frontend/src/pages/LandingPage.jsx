@@ -59,7 +59,7 @@ const LandingPage = () => {
 
                 <div className="flex gap-4">
 
-                    <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
                     Start Organizing Now
                     <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                 </a>

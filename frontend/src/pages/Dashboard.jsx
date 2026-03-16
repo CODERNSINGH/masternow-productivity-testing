@@ -234,7 +234,7 @@ const Dashboard = () => {
                 <div className="flex justify-center flex-col items-center py-20 opacity-90 rounded-sm border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
                     <h2 className="text-xl font-bold mb-2">Welcome to Masternow</h2>
                     <p className="mb-6 text-sm opacity-70">Please log in to view your courses and daily tasks.</p>
-                    <a href="https://masternow-productivity-testing.onrender.com/auth/google" className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
+                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
                         Log in with Google
                     </a>
                 </div>
