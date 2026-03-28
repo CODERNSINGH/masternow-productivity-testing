@@ -26,30 +26,35 @@ const Dashboard = () => {
                 if (data.length > 0) {
                     const recentCourse = data[0];
                     setCourseId(recentCourse.id);
-                    setActiveCourseTitle(recentCourse.platform === 'youtube' ? 'YouTube Course' : 'Your Journey');
+                    setActiveCourseTitle(data.length > 1 ? 'Your Active Courses' : (recentCourse.platform === 'youtube' ? 'YouTube Course' : 'Your Journey'));
+                    
                     const daysMap = {};
-                    recentCourse.lectureItems.forEach((lecture) => {
-                        const dateObj = new Date(lecture.assignedDate);
-                        const dateStr = dateObj.toLocaleDateString();
-                        if (!daysMap[dateStr]) {
-                            daysMap[dateStr] = {
-                                id: dateStr, title: dateObj.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }),
-                                isCompleted: true, dateVal: dateObj.getTime(), lectures: []
-                            };
-                        }
-                        let videoId = 'default';
-                        try { videoId = new URL(lecture.videoUrl).searchParams.get('v') || 'default'; } catch (e) { }
+                    
+                    // Iterate through all courses to merge their lectures by date
+                    data.forEach(course => {
+                        course.lectureItems.forEach((lecture) => {
+                            const dateObj = new Date(lecture.assignedDate);
+                            const dateStr = dateObj.toLocaleDateString();
+                            if (!daysMap[dateStr]) {
+                                daysMap[dateStr] = {
+                                    id: dateStr, title: dateObj.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' }),
+                                    isCompleted: true, dateVal: dateObj.getTime(), lectures: []
+                                };
+                            }
+                            let videoId = 'default';
+                            try { videoId = new URL(lecture.videoUrl).searchParams.get('v') || 'default'; } catch (e) { }
 
-                        daysMap[dateStr].lectures.push({
-                            id: lecture.id, title: lecture.title || 'Lecture', duration: lecture.videoUrl ? 'Video' : 'Note',
-                            completed: lecture.isCompleted,
-                            notes: lecture.driveNoteLink && !lecture.videoUrl ? '📝 Shared via Drive' : lecture.description?.substring(0, 100) + '...',
-                            thumbnail: lecture.driveNoteLink && !lecture.videoUrl ? 'https://images.unsplash.com/photo-1618044733300-9472054094ee?w=400&h=225&fit=crop' : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
-                            driveNoteLink: lecture.driveNoteLink,
-                            videoUrl: lecture.videoUrl
+                            daysMap[dateStr].lectures.push({
+                                id: lecture.id, title: lecture.title || 'Lecture', duration: lecture.videoUrl ? 'Video' : 'Note',
+                                completed: lecture.isCompleted,
+                                notes: lecture.driveNoteLink && !lecture.videoUrl ? '📝 Shared via Drive' : lecture.description?.substring(0, 100) + '...',
+                                thumbnail: lecture.driveNoteLink && !lecture.videoUrl ? 'https://images.unsplash.com/photo-1618044733300-9472054094ee?w=400&h=225&fit=crop' : `https://img.youtube.com/vi/${videoId}/hqdefault.jpg`,
+                                driveNoteLink: lecture.driveNoteLink,
+                                videoUrl: lecture.videoUrl
+                            });
+
+                            if (!lecture.isCompleted) daysMap[dateStr].isCompleted = false;
                         });
-
-                        if (!lecture.isCompleted) daysMap[dateStr].isCompleted = false;
                     });
 
                     const formattedDays = Object.values(daysMap).sort((a, b) => a.dateVal - b.dateVal);
@@ -307,24 +312,24 @@ const Dashboard = () => {
                                                             </div>
                                                         </div>
 
-                                                        {/* Details */}
-                                                        <div className="flex-1 min-w-0">
-                                                            <div className="flex justify-between items-start gap-2">
-                                                                <span className={`font-semibold text-base leading-tight block truncate text-gray-900 dark:text-gray-100 ${lecture.completed ? 'opacity-40 line-through' : ''}`}>
-                                                                    {lecture.title}
-                                                                </span>
-                                                                {lecture.driveNoteLink && !lecture.videoUrl ? (
-                                                                    <a href={lecture.driveNoteLink} target="_blank" rel="noopener noreferrer" className="shrink-0 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-blue-500 text-white px-3 py-1.5 rounded-sm hover:scale-105 transition-transform shadow-sm">
-                                                                        <ExternalLink size={14} /> Open Note
-                                                                    </a>
-                                                                ) : (
-                                                                    <button onClick={() => window.open(`/lecture/${lecture.id}`, '_blank')} className="shrink-0 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded-sm hover:scale-105 transition-transform shadow-sm">
-                                                                        <PlayCircle size={14} /> Play
-                                                                    </button>
-                                                                )}
-                                                            </div>
 
-                                                            {/* Sample Notes Section */}
+                                                                                                                <div className="flex-1 min-w-0">
+                                                                                                                    <div className="flex justify-between items-start gap-2">
+                                                                                                                        <span className={`font-semibold text-base leading-tight block truncate text-gray-900 dark:text-gray-100 ${lecture.completed ? 'opacity-40 line-through' : ''}`}>
+                                                                                                                            {lecture.title}
+                                                                                                                        </span>
+                                                                                                                        {lecture.driveNoteLink && !lecture.videoUrl ? (
+                                                                                                                            <a href={lecture.driveNoteLink} target="_blank" rel="noopener noreferrer" className="shrink-0 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-blue-500 text-white px-3 py-1.5 rounded-sm hover:scale-105 transition-transform shadow-sm">
+                                                                                                                                <ExternalLink size={14} /> Open Note
+                                                                                                                            </a>
+                                                                                                                        ) : (
+                                                                                                                            <Link to={`/lecture/${lecture.id}`} className="shrink-0 flex items-center gap-1.5 text-xs font-bold uppercase tracking-widest bg-black text-white dark:bg-white dark:text-black px-3 py-1.5 rounded-sm hover:scale-105 transition-transform shadow-sm">
+                                                                                                                                <PlayCircle size={14} /> Play
+                                                                                                                            </Link>
+                                                                                                                        )}
+                                                                                                                    </div>
+
+                                                                                                                    {/* Sample Notes Section */}
                                                             <div className="mt-2 text-sm p-2 rounded-sm border line-clamp-2" style={{ backgroundColor: 'var(--bg-color)', borderColor: 'var(--border-color)', color: 'var(--text-color)' }}>
                                                                 {lecture.notes ? (
                                                                     <div className="flex items-center gap-2"><FileText size={14} className="opacity-70" /><strong className="font-medium" style={{ color: 'var(--text-color)' }}>Notes snippet:</strong> {lecture.notes}</div>

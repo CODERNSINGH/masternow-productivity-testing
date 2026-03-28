@@ -1,0 +1,32 @@
+{
+  "name": "masternow",
+  "version": "1.0.0",
+  "main": "main.js",
+  "productName": "Masternow",
+
+  "scripts": {
+    "dev": "vite",
+    "electron": "electron .",
+    "start": "concurrently \"npm run dev\" \"npm run electron\"",
+    "build": "vite build",
+    "build:mac": "electron-builder --mac"
+  },
+
+  "dependencies": {
+    "concurrently": "^9.2.1"
+  },
+
+  "devDependencies": {
+    "electron": "^41.0.3",
+    "electron-builder": "^24.13.3"
+  },
+
+  "build": {
+    "appId": "com.narendra.myapp",
+    "productName": "Masternow",
+    "mac": {
+      "target": "dmg",
+      "icon": "icon.icns"
+    }
+  }
+}
