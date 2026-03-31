@@ -95,20 +95,20 @@ const LandingPage = () => {
                         <div className='flex gap-3'>
 
                             <button onClick={handleDownload} className="group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
-                            Download .dmg
-                            <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" className="w-5 h-5" alt="mac" />
-                            {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
-                        </button>
+                                Download .dmg
+                                <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" className="w-5 h-5" alt="mac" />
+                                {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
+                            </button>
 
-                        <button onClick={handleDownload} className=" bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor2: 'var(--primary-btn)', color2: 'var(--primary-btn-text) ' }}>
-                            Download .exe
-                            <img src="https://cdn-icons-png.flaticon.com/512/888/888882.png" className="w-5 h-5" alt="mac" />
-                            {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
-                        </button>
+                            <button onClick={handleDownload} className=" bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor2: 'var(--primary-btn)', color2: 'var(--primary-btn-text) ' }}>
+                                Download .exe
+                                <img src="https://cdn-icons-png.flaticon.com/512/888/888882.png" className="w-5 h-5" alt="mac" />
+                                {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
+                            </button>
 
                         </div>
-                        
-        
+
+
                     </div>
                     <div className="flex-1 flex items-center justify-center">
                         {/* <MacbookSVG /> */}
