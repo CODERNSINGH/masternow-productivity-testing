@@ -21,7 +21,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
             setIsLoading(true);
             try {
                 const token = localStorage.getItem('token');
-                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${id}`, {
+                const res = await fetch(`http://localhost:5001/api/courses/lecture/${id}`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -29,7 +29,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                     setLecture(data);
 
                     if (!courseDays) {
-                        const coursesRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, {
+                        const coursesRes = await fetch(`http://localhost:5001/api/courses`, {
                             headers: { 'Authorization': `Bearer ${token}` }
                         });
                         if (coursesRes.ok) {
@@ -75,7 +75,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
         try {
             setIsSaving(true);
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-note`, {
+            const res = await fetch(`http://localhost:5001/api/drive/upload-note`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -111,7 +111,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
             formData.append('file', file);
             formData.append('lectureItemId', id);
 
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-file`, {
+            const res = await fetch(`http://localhost:5001/api/drive/upload-file`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -134,7 +134,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
         try {
             const token = localStorage.getItem('token');
             const newStatus = !lecture.isCompleted;
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${id}/complete`, {
+            const res = await fetch(`http://localhost:5001/api/courses/lecture/${id}/complete`, {
                 method: 'PATCH',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -157,8 +157,8 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
     };
 
     const content = (
-        <div className={`flex flex-col ${isModal ? 'h-[90vh] rounded-xl overflow-hidden shadow-2xl border' : 'min-h-screen'}`} style={{ backgroundColor: 'var(--component-bg)', color: 'var(--text-color)', borderColor: isModal ? 'var(--border-color)' : 'transparent' }}>
-            <header className="flex justify-between items-center px-6 py-4" style={{ borderBottom: '1px solid var(--border-color)' }}>
+        <div className={`flex flex-col ${isModal ? 'h-[90vh] rounded-xl overflow-hidden shadow-2xl border border-slate-800' : 'min-h-screen'} bg-slate-950 text-white`}>
+            <header className="flex justify-between items-center px-6 py-4 border-b border-slate-800">
                 <div className="flex items-center gap-4">
                     {!isModal && (
                         <button onClick={handleClose} className="p-2 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition">
@@ -183,7 +183,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                     {/* Main Content: Video + Notes */}
                     <div className="flex-1 flex flex-col overflow-y-auto p-6 scroll-smooth">
                         {lecture.videoUrl ? (
-                            <div className="w-full aspect-video bg-black rounded-lg mb-6 flex items-center justify-center relative overflow-hidden shadow-xl border" style={{ borderColor: 'var(--border-color)' }}>
+                            <div className="w-full aspect-video bg-black rounded-lg mb-6 flex items-center justify-center relative overflow-hidden shadow-xl border border-slate-800">
                                 <iframe
                                     className="absolute top-0 left-0 w-full h-full"
                                     src={`https://www.youtube.com/embed/${new URL(lecture.videoUrl).searchParams.get('v')}?autoplay=0&rel=0`}
@@ -209,15 +209,15 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                             </button>
                         </div>
 
-                        <p className="text-sm opacity-70 mb-8 border-b pb-8 whitespace-pre-wrap" style={{ borderColor: 'var(--border-color)' }}>
+                        <p className="text-sm opacity-70 mb-8 border-b border-slate-800 pb-8 whitespace-pre-wrap">
                             {lecture.description || 'No description provided.'}
                         </p>
 
                         <h3 className="text-xl font-bold mb-4 tracking-tight">Your Notes <span className="text-xs font-normal opacity-50 ml-2">(Markdown Supported)</span></h3>
 
-                        <div className="border rounded-lg overflow-hidden flex flex-col shadow-sm focus-within:ring-2 ring-black dark:ring-white transition-shadow" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-color)' }}>
+                        <div className="border border-slate-800 rounded-lg overflow-hidden flex flex-col shadow-sm focus-within:ring-2 ring-black dark:ring-white transition-shadow bg-black">
                             {/* Toolbar */}
-                            <div className="flex items-center justify-between p-2 border-b" style={{ borderColor: 'var(--border-color)' }}>
+                            <div className="flex items-center justify-between p-2 border-b border-slate-800">
                                 <div className="flex items-center gap-1">
                                     <button onClick={() => insertFormatting('**Bold** ')} className="p-1.5 rounded hover:bg-black/5 dark:hover:bg-white/10 text-gray-600 dark:text-gray-400" title="Bold"><Bold size={16} /></button>
                                     <button onClick={() => insertFormatting('*Italic* ')} className="p-1.5 rounded hover:bg-black/5 dark:hover:bg-white/10 text-gray-600 dark:text-gray-400" title="Italic"><Italic size={16} /></button>
@@ -243,7 +243,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                             ></textarea>
 
                             {/* Save Action */}
-                            <div className="p-4 border-t flex justify-end gap-3" style={{ borderColor: 'var(--border-color)' }}>
+                            <div className="p-4 border-t border-slate-800 flex justify-end gap-3">
                                 <button
                                     onClick={saveToDrive}
                                     disabled={isSaving}
@@ -254,8 +254,8 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                         </div>
                     </div>
 
-                    <aside className="w-80 h-full border-l flex flex-col pt-2" style={{ borderColor: 'var(--border-color)' }}>
-                        <div className="p-4 border-b font-bold tracking-wide flex justify-between items-center" style={{ borderColor: 'var(--border-color)' }}>
+                    <aside className="w-80 h-full border-l border-slate-800 flex flex-col pt-2">
+                        <div className="p-4 border-b border-slate-800 font-bold tracking-wide flex justify-between items-center">
                             <span>Course Overview</span>
                         </div>
                         <div className="flex-1 overflow-y-auto p-4 space-y-2">
@@ -265,7 +265,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                                         <h4 className="text-xs font-bold uppercase tracking-widest opacity-50 mb-2">Day {day.dayNumber} - {day.title}</h4>
                                         <div className="space-y-1">
                                             {day.lectures.map(l => (
-                                                <div key={l.id} className={`p-2 text-xs font-medium rounded-md truncate cursor-pointer transition-colors ${l.id === id ? 'bg-black text-white dark:bg-white dark:text-black font-bold' : 'hover:bg-black/5 dark:hover:bg-white/10'}`} style={{ color: l.id === id ? 'var(--primary-btn-text)' : 'inherit' }}>
+                                                <div key={l.id} className={`p-2 text-xs font-medium rounded-md truncate cursor-pointer transition-colors ${l.id === id ? 'bg-black text-white dark:bg-white dark:text-black font-bold' : 'hover:bg-black/5 dark:hover:bg-white/10'}`}>
                                                     {l.completed ? '✔ ' : ''}{l.title}
                                                 </div>
                                             ))}
@@ -289,7 +289,7 @@ const LecturePlayer = ({ lectureId: propLectureId, onClose, courseDays }) => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className="p-3 justify-center items-center text-center rounded-md border shadow-sm opacity-50" style={{ borderColor: 'var(--border-color)' }}>
+                                <div className="p-3 justify-center items-center text-center rounded-md border border-slate-800 shadow-sm opacity-50">
                                     <p className="text-xs font-bold mb-1">Assigned Date</p>
                                     <p className="text-[10px] font-mono">{new Date(lecture.assignedDate).toLocaleDateString()}</p>
                                 </div>

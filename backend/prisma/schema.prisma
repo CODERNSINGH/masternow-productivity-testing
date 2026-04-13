@@ -35,6 +35,10 @@ model User {
   
   courses       Course[]
   tasks         Task[]
+
+
+  chats     Chat[]
+  documents Document[]
 }
 
 model Course {
@@ -78,4 +82,57 @@ model Task {
   isCompleted     Boolean   @default(false)
   createdAt       DateTime  @default(now())
   updatedAt       DateTime  @updatedAt
+}
+
+
+// RAG-based chat system
+
+model Document {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  fileName  String
+  fileType  String   // "pdf" or "word"
+  originalText String  @db.Text // Full extracted text
+  status    String   @default("processing") // processing / ready / failed
+  chunks    DocumentChunk[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+}
+
+model DocumentChunk {
+  id         String   @id @default(uuid())
+  documentId String
+  document   Document @relation(fields: [documentId], references: [id], onDelete: Cascade)
+  content    String   @db.Text
+  chunkIndex Int      // Order of chunk
+  embedding  Float[]  // Vector embedding (using Prisma unsupported type as JSON)
+  createdAt  DateTime @default(now())
+  
+  @@index([documentId])
+}
+
+model Chat {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  messages  Message[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  
+  @@index([userId])
+}
+
+model Message {
+  id        String   @id @default(uuid())
+  chatId    String
+  chat      Chat     @relation(fields: [chatId], references: [id], onDelete: Cascade)
+  role      String   // "user" or "assistant"
+  content   String   @db.Text
+  files     String[]  // File names referenced
+  createdAt DateTime @default(now())
+  
+  @@index([chatId])
 }

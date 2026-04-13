@@ -10,6 +10,8 @@ import driveRoutes from './routes/drive.js';
 import calendarRoutes from './routes/calendar.js';
 import coursesRoutes from './routes/courses.js';
 import streakRoutes from './routes/streak.js';
+import chatRoutes from './routes/Chat.js';
+
 
 dotenv.config();
 
@@ -35,6 +37,8 @@ app.use('/api/drive', driveRoutes);
 app.use('/api/calendar', calendarRoutes);
 app.use('/api/courses', coursesRoutes);
 app.use('/api/streak', streakRoutes);
+app.use('/api/chat', chatRoutes);
+
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);

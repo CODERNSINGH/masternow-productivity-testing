@@ -59,7 +59,7 @@ export const ContactUs = () => {
                     <h1 className="text-4xl font-black tracking-tight">Contact Us</h1>
                 </div>
 
-                <div className="p-8 border rounded-xl bg-gray-50 dark:bg-[#0a0a0a]" style={{ borderColor: 'var(--border-color)' }}>
+                <div className="p-8 border border-slate-800 rounded-xl bg-gray-50 dark:bg-slate-950">
                     <h2 className="text-2xl font-bold mb-4">Get in Touch</h2>
                     <p className="opacity-80 mb-6 text-lg">Have a question, feedback, or need support? We're here to help.</p>
                     

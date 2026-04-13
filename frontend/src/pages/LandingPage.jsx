@@ -31,10 +31,10 @@ const LandingPage = () => {
     };
 
     return (
-        <div className="min-h-screen transition-colors duration-200" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
+        <div className="min-h-screen transition-colors duration-200 bg-black text-white">
 
             {/* Minimalist Header */}
-            <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 dark:bg-black/70" style={{ borderBottom: '1px solid var(--border-color)' }}>
+            <header className="fixed top-0 w-full z-50 backdrop-blur-md bg-white/70 dark:bg-black/70 border-b border-slate-800">
                 <div className="flex justify-between items-center px-6 md:px-12 py-4 max-w-screen-2xl mx-auto">
                     <div className="flex items-center gap-2">
                         <img src={currentLogo} alt="Masternow Logo" className="h-7" />
@@ -49,7 +49,7 @@ const LandingPage = () => {
                             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
                         </button>
                         */}
-                        <Link to="/dashboard" className="px-5 py-2 rounded-md font-bold text-sm transition hover:scale-105 active:scale-95" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                        <Link to="/dashboard" className="px-5 py-2 rounded-md font-bold text-sm transition hover:scale-105 active:scale-95 bg-white text-black">
                             Log In
                         </Link>
                     </div>
@@ -64,13 +64,13 @@ const LandingPage = () => {
                     Secure & Private Google Drive Integration
                 </div>
 
-                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight mb-8" style={{ letterSpacing: '-0.03em' }}>
+                <h1 className="text-6xl md:text-8xl font-black tracking-tighter leading-tight mb-8 -tracking-wide">
                     Plan your learning.<br />
                     <span className="opacity-40">Masternow.</span>
                 </h1>
 
                 <div className="max-w-3xl mb-12 space-y-4">
-                    <p className="text-xl md:text-2xl font-medium leading-relaxed" style={{ opacity: 0.9 }}>
+                    <p className="text-xl md:text-2xl font-medium leading-relaxed opacity-90">
                         Masternow is a personal productivity and learning management tool that helps you organize YouTube tutorials into structured courses, sync study schedules with Google Calendar, and securely save Markdown notes directly to your Google Drive. We turn chaotic playlists into a focused syllabus.
                     </p>
 
@@ -78,7 +78,7 @@ const LandingPage = () => {
 
                 <div className="flex gap-4">
 
-                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001'}/auth/google?frontendUrl=${window.location.origin}`} className="group flex items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-transform hover:-translate-y-1 shadow-2xl bg-white text-black">
                         Start Organizing Now
                         <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" />
                     </a>
@@ -94,7 +94,7 @@ const LandingPage = () => {
 
 
                 {/* Download Card Section */}
-                <div className="mt-32 w-full p-0 md:p-8 rounded-2xl border flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden" style={{ borderColor: 'var(--border-color)', backgroundColor: 'rgba(255, 255, 255, 0.03)' }}>
+                <div className="mt-32 w-full p-0 md:p-8 rounded-2xl border border-slate-800 flex flex-col md:flex-row items-center justify-between gap-4 overflow-hidden bg-white/3">
                     <div className="flex-1 items-center justify-center text-left m-0 p-0">
                         <h2 className="text-4xl md:text-5xl font-black mb-4 tracking-tight">Download for <span className='text-blue-400'>macOS</span></h2>
                         <p className="text-lg font-medium opacity-70 mb-8 leading-relaxed">
@@ -103,13 +103,13 @@ const LandingPage = () => {
 
                         <div className='flex gap-3'>
 
-                            <button onClick={handleDownload} className="group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor: 'var(--primary-btn)', color: 'var(--primary-btn-text)' }}>
+                            <button onClick={handleDownload} className="group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl bg-white text-black">
                                 Download .dmg
                                 <img src="https://cdn-icons-png.flaticon.com/512/179/179309.png" className="w-5 h-5" alt="mac" />
                                 {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
                             </button>
 
-                            <button onClick={handleDownloadWindows} className=" bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl" style={{ backgroundColor2: 'var(--primary-btn)', color2: 'var(--primary-btn-text) ' }}>
+                            <button onClick={handleDownloadWindows} className="bg-blue-500 hover:bg-blue-600 text-white group flex justify-center items-center gap-3 px-8 py-4 rounded-md font-bold text-lg transition-all hover:scale-105 active:scale-95 shadow-2xl">
                                 Download .exe
                                 <img src="https://cdn-icons-png.flaticon.com/512/888/888882.png" className="w-5 h-5" alt="mac" />
                                 {/* <ArrowRight size={20} className="group-hover:translate-x-1 transition-transform" /> */}
@@ -131,7 +131,7 @@ const LandingPage = () => {
                 <div className="mt-32 w-full grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 text-left">
 
                     {/* Feature 1 */}
-                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-[#0a0a0a] border hover:border-black dark:hover:border-white transition-all group" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-slate-950 border border-slate-800 hover:border-black dark:hover:border-white transition-all group">
                         <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                             <img src="/assets/youtube-icon-svgrepo-com.svg" alt="" />
                         </div>
@@ -142,7 +142,7 @@ const LandingPage = () => {
                     </div>
 
                     {/* Feature 2 */}
-                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-[#0a0a0a] border hover:border-black dark:hover:border-white transition-all group" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-slate-950 border border-slate-800 hover:border-black dark:hover:border-white transition-all group">
                         <div className="w-12 h-12 rounded-lg flex items-center justify-center mb-6 shadow-lg group-hover:scale-110 transition-transform">
                             <img src="/assets/google-calendar-svgrepo-com.svg" alt="" />
                         </div>
@@ -153,7 +153,7 @@ const LandingPage = () => {
                     </div>
 
                     {/* Feature 3 */}
-                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-[#0a0a0a] border hover:border-black dark:hover:border-white transition-all group lg:col-span-2 relative overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-slate-950 border border-slate-800 hover:border-black dark:hover:border-white transition-all group lg:col-span-2 relative overflow-hidden">
                         <div className="absolute top-0 right-0 p-8 opacity-10">
                             <HardDrive size={180} />
                         </div>
@@ -172,7 +172,7 @@ const LandingPage = () => {
                     </div>
 
                     {/* Ext Feature */}
-                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-[#0a0a0a] border hover:border-black dark:hover:border-white transition-all group lg:col-span-4 flex items-center justify-between overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
+                    <div className="p-8 rounded-xl bg-gray-50 dark:bg-slate-950 border border-slate-800 hover:border-black dark:hover:border-white transition-all group lg:col-span-4 flex items-center justify-between overflow-hidden">
                         <div className="max-w-2xl">
                             <h3 className="text-3xl font-bold mb-4 tracking-tight flex items-center gap-3">
                                 <Zap size={32} /> Streak Maker
@@ -192,8 +192,8 @@ const LandingPage = () => {
             </main>
 
             {/* Footer */}
-            <footer className="border-t py-8 mt-20" style={{ borderColor: 'var(--border-color)', backgroundColor: 'var(--bg-color)' }}>
-                <div className="max-w-screen-xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium" style={{ opacity: 0.6 }}>
+            <footer className="border-t border-slate-800 py-8 mt-20 bg-black">
+                <div className="max-w-screen-xl mx-auto px-6 md:px-12 flex flex-col md:flex-row justify-between items-center gap-4 text-sm font-medium opacity-60">
                     <p>&copy; {new Date().getFullYear()} Masternow. All rights reserved.</p>
                     <div className="flex gap-6">
                         <Link to="/about" className="hover:opacity-100 transition-opacity">About Us</Link>

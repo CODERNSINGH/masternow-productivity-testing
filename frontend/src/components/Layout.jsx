@@ -8,7 +8,7 @@ const Layout = ({ children, maxW = 'max-w-5xl' }) => {
     const { theme, toggleTheme } = useTheme();
 
     return (
-        <div className="flex min-h-screen transition-colors duration-200" style={{ backgroundColor: 'var(--bg-color)', color: 'var(--text-color)' }}>
+        <div className="flex min-h-screen transition-colors duration-200 bg-black text-white">
             {/* Sidebar */}
             <Sidebar isCollapsed={isSidebarCollapsed} setIsCollapsed={setIsSidebarCollapsed} />
 

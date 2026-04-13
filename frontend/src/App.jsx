@@ -7,7 +7,7 @@ import LecturePlayer from './pages/LecturePlayer';
 import ToDo from './pages/ToDo';
 import AddCourse from './pages/AddCourse';
 import { Books } from './pages/Placeholders';
-import {PersonalisedAI} from './pages/Placeholders';
+import PersonalisedAI from './pages/PersonalisedAI';
 import StreakMaker from './pages/StreakMaker';
 import Settings from './pages/Settings';
 import AuthCallback from './pages/AuthCallback';

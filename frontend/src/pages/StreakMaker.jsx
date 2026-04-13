@@ -22,7 +22,7 @@ const StreakMaker = () => {
             try {
                 const token = localStorage.getItem('token');
                 if (!token) return;
-                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, {
+                const res = await fetch(`http://localhost:5001/api/streak`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (res.ok) {
@@ -65,7 +65,7 @@ const StreakMaker = () => {
                 hackerrankHandle: handles.hackerrank || undefined,
             };
 
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak/handles`, {
+            const res = await fetch(`http://localhost:5001/api/streak/handles`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -78,7 +78,7 @@ const StreakMaker = () => {
                 setMessage({ type: 'success', text: 'Handles connected successfully!' });
 
                 // Refetch streak data after update to reflect new connections
-                const newRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, {
+                const newRes = await fetch(`http://localhost:5001/api/streak`, {
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
                 if (newRes.ok) {
@@ -121,7 +121,7 @@ const StreakMaker = () => {
                     </p>
                 </div>
 
-                <div className={`flex flex-col items-center justify-center p-4 rounded-lg border-2" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }} shadow-sm min-w-[150px]`}>
+                <div className="flex flex-col items-center justify-center p-4 rounded-lg border-2 border-slate-800 shadow-sm min-w-[150px] bg-slate-950">
                     <Flame size={32} className={`mb-2 ${streakData.isActiveToday ? 'text-orange-500 fill-orange-500 animate-pulse' : 'text-gray-400 dark:text-gray-600'}`} />
                     <div className="text-3xl font-black mb-1">{streakData.streakCount}</div>
                     <div className="text-xs font-bold uppercase tracking-wider opacity-60">Day Streak</div>
@@ -133,7 +133,7 @@ const StreakMaker = () => {
                     <Loader className="animate-spin mr-3" /> Loading connections...
                 </div>
             ) : (
-                <div className="rounded-xl border shadow-sm p-6 md:p-8" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                <div className="rounded-xl border border-slate-800 shadow-sm p-6 md:p-8 bg-slate-950">
 
                     {message && (
                         <div className={`px-4 py-3 rounded-md mb-6 flex items-center gap-2 text-sm font-medium ${message.type === 'success' ? 'bg-green-50 text-green-800 dark:bg-green-950/30 dark:text-green-400 border border-green-200 dark:border-green-900/50' : 'bg-red-50 text-red-800 dark:bg-red-950/30 dark:text-red-400 border border-red-200 dark:border-red-900/50'}`}>
@@ -156,8 +156,7 @@ const StreakMaker = () => {
                                             value={handles[platform.id]}
                                             onChange={(e) => handleInputChange(platform.id, e.target.value)}
                                             placeholder={`${platform.name} username...`}
-                                            className="w-full border text-sm rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent block px-4 py-3 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium"
-                                            style={{ backgroundColor: 'var(--bg-color)', borderColor: 'var(--border-color)', color: 'var(--text-color)' }}
+                                            className="w-full border border-slate-800 text-sm rounded-lg focus:ring-2 focus:ring-black dark:focus:ring-white focus:border-transparent block px-4 py-3 outline-none transition-all placeholder:text-gray-400 dark:placeholder:text-gray-600 font-medium bg-black text-white"
                                         />
                                         {handles[platform.id] && (
                                             <div className="absolute right-3 top-1/2 -translate-y-1/2 rounded-full bg-green-100 dark:bg-green-900/60 p-1">
@@ -169,7 +168,7 @@ const StreakMaker = () => {
                             ))}
                         </div>
 
-                        <div className="pt-6 border-t flex justify-end" style={{ borderColor: 'var(--border-color)' }}>
+                        <div className="pt- 6 border-t border-slate-800 flex justify-end">
                             <button
                                 type="submit"
                                 disabled={isSaving}

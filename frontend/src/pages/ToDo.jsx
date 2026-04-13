@@ -111,7 +111,7 @@ const ToDo = () => {
             if (res.ok) {
                 // Sync to Google Calendar quietly
                 try {
-                    await fetch(`https://masternow-productivity-testing.onrender.com/api/calendar/add-event`, {
+                    await fetch(`http://localhost:5001/api/calendar/add-event`, {
                         method: 'POST',
                         headers: {
                             'Authorization': `Bearer ${token}`,
@@ -194,7 +194,7 @@ const ToDo = () => {
         // Backend Update
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks/${draggedTaskId}`, {
+            const res = await fetch(`http://localhost:5001/api/tasks/${draggedTaskId}`, {
                 method: 'PUT',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -228,7 +228,7 @@ const ToDo = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/tasks/${taskId}`, {
+            const res = await fetch(`http://localhost:5001/api/tasks/${taskId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -259,7 +259,7 @@ const ToDo = () => {
                 </div>
 
                 <div className="flex items-center gap-4">
-                    <div className="flex items-center p-1 rounded-sm border" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                    <div className="flex items-center p-1 rounded-sm border border-slate-800 bg-slate-950">
                         <button
                             onClick={() => setViewMode('board')}
                             className={`px-3 py-1.5 rounded-sm flex items-center gap-2 text-sm font-semibold transition-all ${viewMode === 'board' ? 'bg-white dark:bg-black shadow-sm' : 'text-gray-500 hover:text-black dark:hover:text-white'}`}
@@ -304,7 +304,7 @@ const ToDo = () => {
                                         key={task.id}
                                         draggable
                                         onDragStart={(e) => handleDragStart(e, task.id, col.id)}
-                                        className={`relative p-4 rounded-sm border shadow-sm cursor-grab active:cursor-grabbing hover:border-gray-400 dark:hover:border-gray-500 transition-colors group ${draggedTaskId === task.id ? 'opacity-50 blur-[1px]' : ''}`}
+                                        className={`relative p-4 rounded-sm border border-slate-800 shadow-sm cursor-grab active:cursor-grabbing hover:border-gray-400 dark:hover:border-gray-500 transition-colors group bg-slate-950 ${draggedTaskId === task.id ? 'opacity-50 blur-[1px]' : ''}`}
                                         style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}
                                     >
                                         {/* Delete Button (visible on hover) */}
@@ -353,7 +353,7 @@ const ToDo = () => {
                     ))}
                 </div>
             ) : (
-                <div className="p-4 rounded-lg border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)', height: '70vh' }}>
+                <div className="p-4 rounded-lg border border-slate-800 shadow-sm bg-slate-950 overflow-hidden flex flex-col" style={{ height: '70vh' }}>
                     <style>{`
                     .rbc-calendar { font-family: inherit; font-size: 0.85rem; }
                     .rbc-toolbar button { color: inherit; border-radius: 4px; padding: 4px 10px; }

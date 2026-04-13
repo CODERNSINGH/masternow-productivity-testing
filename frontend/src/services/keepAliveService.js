@@ -1,7 +1,7 @@
 // Keep-Alive Service to prevent Render server from spinning down
 // Calls the API every 14 minutes to keep the server active
 
-const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com';
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001';
 const KEEP_ALIVE_INTERVAL = 14 * 60 * 1000; // 14 minutes in milliseconds
 let keepAliveIntervalId = null;
 

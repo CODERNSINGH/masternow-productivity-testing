@@ -22,7 +22,7 @@ const AddCourse = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) return;
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`http://localhost:5001/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 setAllCourses(data);
@@ -40,7 +40,7 @@ const AddCourse = () => {
         if (!window.confirm("Are you sure you want to delete this course and all its progress?")) return;
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/${courseId}`, {
+            const res = await fetch(`http://localhost:5001/api/courses/${courseId}`, {
                 method: 'DELETE',
                 headers: { 'Authorization': `Bearer ${token}` }
             });
@@ -89,7 +89,7 @@ const AddCourse = () => {
 
         try {
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/youtube/fetch-playlist`, {
+            const res = await fetch(`http://localhost:5001/api/youtube/fetch-playlist`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -141,7 +141,7 @@ const AddCourse = () => {
         try {
             setIsLoading(true);
             const token = localStorage.getItem('token');
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/youtube/save-course`, {
+            const res = await fetch(`http://localhost:5001/api/youtube/save-course`, {
                 method: 'POST',
                 headers: {
                     'Authorization': `Bearer ${token}`,
@@ -174,7 +174,7 @@ const AddCourse = () => {
             <h1 className="text-3xl font-bold mb-2">Plan New Course</h1>
             <p className="mb-8 opacity-60">Turn a massive playlist into daily, actionable steps.</p>
 
-            <div className="p-8 rounded-sm border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+            <div className="p-8 rounded-sm border border-slate-800 shadow-sm bg-slate-950">
                 {error && (
                     <div className="mb-6 p-4 rounded-sm border border-red-500 bg-red-50 text-red-700 dark:bg-red-950/20 dark:text-red-400 text-sm font-semibold">
                         Error: {error}
@@ -207,8 +207,7 @@ const AddCourse = () => {
                             placeholder="https://www.youtube.com/playlist?list=..."
                             value={playlistLink}
                             onChange={e => setPlaylistLink(e.target.value)}
-                            className="w-full p-3 rounded-sm bg-transparent border outline-none focus:ring-2 ring-black dark:ring-white transition-all text-sm"
-                            style={{ borderColor: 'var(--border-color)' }}
+                            className="w-full p-3 rounded-sm bg-transparent border border-slate-800 outline-none focus:ring-2 ring-black dark:ring-white transition-all text-sm"
                             required
                         />
                     </div>
@@ -218,11 +217,11 @@ const AddCourse = () => {
                         <div>
                             <label className="block text-sm font-semibold mb-3">3. Workload Limits</label>
                             <div className="space-y-4">
-                                <div className="flex justify-between items-center p-3 border rounded-sm" style={{ borderColor: 'var(--border-color)' }}>
+                                <div className="flex justify-between items-center p-3 border border-slate-800 rounded-sm">
                                     <span className="text-sm">Lectures on Working Days</span>
                                     <input type="number" min="0" max="10" value={lecturesPerWorkDay} onChange={e => setLecturesPerWorkDay(Number(e.target.value))} className="w-16 p-1 text-center border rounded-sm bg-transparent" />
                                 </div>
-                                <div className="flex justify-between items-center p-3 border rounded-sm" style={{ borderColor: 'var(--border-color)' }}>
+                                <div className="flex justify-between items-center p-3 border border-slate-800 rounded-sm">
                                     <span className="text-sm">Lectures on Weekends</span>
                                     <input type="number" min="0" max="10" value={lecturesPerWeekend} onChange={e => setLecturesPerWeekend(Number(e.target.value))} className="w-16 p-1 text-center border rounded-sm bg-transparent" />
                                 </div>
@@ -233,7 +232,7 @@ const AddCourse = () => {
                         <div>
                             <label className="block text-sm font-semibold mb-3">4. Schedule Setup</label>
                             <div className="mb-4">
-                                <div className="flex items-center justify-between border rounded-sm overflow-hidden" style={{ borderColor: 'var(--border-color)' }}>
+                                <div className="flex items-center justify-between border border-slate-800 rounded-sm overflow-hidden">
                                     {daysOfWeek.map(day => (
                                         <button
                                             key={day.id}
@@ -253,13 +252,7 @@ const AddCourse = () => {
                                     type="date"
                                     value={startDate}
                                     onChange={e => setStartDate(e.target.value)}
-                                    className="w-full p-2.5 rounded-sm bg-transparent border outline-none focus:ring-1 ring-black dark:ring-white text-sm cursor-pointer"
-                                    style={{ 
-                                        borderColor: 'var(--border-color)',
-                                        color: '#ffffff',
-                                        accentColor: '#ffffff',
-                                        colorScheme: 'dark'
-                                    }}
+                                    className="w-full p-2.5 rounded-sm bg-transparent border border-slate-800 outline-none focus:ring-1 ring-black dark:ring-white text-sm cursor-pointer accent-white"
                                     required
                                 />
                             </div>
@@ -315,7 +308,7 @@ const AddCourse = () => {
                     ) : (
                         <div className="grid gap-4">
                             {activeCourses.map(course => (
-                                <div key={course.id} className="flex justify-between items-center p-4 rounded-sm border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                                <div key={course.id} className="flex justify-between items-center p-4 rounded-sm border border-slate-800 shadow-sm bg-slate-950">
                                     <div>
                                         <h3 className="font-semibold">{course.platform === 'youtube' ? 'YouTube Playlist Course' : 'Custom Course'}</h3>
                                         <p className="text-xs opacity-60">{new Date(course.startDate).toLocaleDateString()} - {course.lectureItems?.length} lectures</p>

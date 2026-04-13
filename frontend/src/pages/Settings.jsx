@@ -18,7 +18,7 @@ const Settings = () => {
                 if (!token) return;
 
                 // Example: Fetch user details to see if google access token exists
-                const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, { // Re-using streak route just to get user data if it has tokens
+                const res = await fetch(`http://localhost:5001/api/streak`, { // Re-using streak route just to get user data if it has tokens
                     headers: { 'Authorization': `Bearer ${token}` }
                 });
 
@@ -41,7 +41,7 @@ const Settings = () => {
     }, []);
 
     const ConnectCard = ({ title, description, iconSrc, isConnected, onConnect }) => (
-        <div className="p-6 rounded-lg border shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+        <div className="p-6 rounded-lg border border-slate-800 shadow-sm flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 transition-all bg-slate-950">
             <div className="flex items-start gap-4">
                 <div className={`p-3 rounded-md flex items-center justify-center ${isConnected ? 'bg-green-50 text-green-600 dark:bg-green-900/20 dark:text-green-500' : 'bg-gray-100 text-gray-500 dark:bg-gray-800 dark:text-gray-400'}`}>
                     <img src={iconSrc} alt={`${title} logo`} className="w-6 h-6 object-contain" />
@@ -74,7 +74,7 @@ const Settings = () => {
     return (
         <Layout maxW="max-w-4xl">
             <div className="mb-10 flex items-center gap-3">
-                <div className="p-3 rounded-lg" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)', borderWidth: '1px' }}>
+                <div className="p-3 rounded-lg bg-slate-950 border border-slate-800">
                     <SettingsIcon size={28} />
                 </div>
                 <div>
@@ -116,11 +116,11 @@ const Settings = () => {
                     </div>
                 </section>
 
-                <section className="pt-8 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                <section className="pt-8 border-t border-slate-800">
                     <h2 className="text-xl font-bold mb-4 flex items-center gap-2 text-red-600 dark:text-red-500">
                         <AlertCircle size={20} /> Danger Zone
                     </h2>
-                    <div className="border p-6 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                    <div className="border border-slate-800 p-6 rounded-lg flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 bg-slate-950">
                         <div>
                             <h3 className="font-bold text-red-800 dark:text-red-400 mb-1">Delete Account</h3>
                             <p className="text-sm text-red-600 dark:text-red-500/70 max-w-md">

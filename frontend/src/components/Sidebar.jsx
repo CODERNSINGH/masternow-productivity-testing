@@ -15,7 +15,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
             const token = localStorage.getItem('token');
             if (token) {
                 try {
-                    const res = await fetch(`https://masternow-productivity-testing.onrender.com/auth/me`, {
+                    const res = await fetch(`http://localhost:5001/auth/me`, {
                         headers: { 'Authorization': `Bearer ${token}` }
                     });
                     if (res.ok) {
@@ -58,8 +58,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
 
     return (
         <aside
-            className={`w-64 h-screen fixed left-0 top-0 flex flex-col p-4 transition-transform duration-300 z-40 ${isCollapsed ? '-translate-x-full' : 'translate-x-0'}`}
-            style={{ backgroundColor: 'var(--component-bg)', borderRight: '1px solid var(--border-color)' }}>
+            className={`w-64 h-screen fixed left-0 top-0 flex flex-col p-4 transition-transform duration-300 z-40 bg-slate-950 border-r border-slate-800 ${isCollapsed ? '-translate-x-full' : 'translate-x-0'}`}>
 
             {/* Header / Logo / Collapse Button */}
             <div className="mb-6 px-2 flex justify-between items-center">
@@ -90,7 +89,7 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
                         <div className="min-w-0 flex-1">
                             <h4 className="font-semibold text-sm truncate">{user?.name || 'Not Logged In'}</h4>
                             {!user && (
-                                <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="text-xs text-blue-500 hover:underline inline-block">
+                                <a href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001'}/auth/google?frontendUrl=${window.location.origin}`} className="text-xs text-blue-500 hover:underline inline-block">
                                     Sign in with Google
                                 </a>
                             )}
@@ -112,28 +111,78 @@ const Sidebar = ({ isCollapsed, setIsCollapsed }) => {
 
             {/* Live Date */}
             <div className="mb-8 px-2">
-                <p className="text-xs font-medium uppercase tracking-wider" style={{ opacity: 0.5 }}>{currentDate}</p>
+                <p className="text-xs font-medium uppercase tracking-wider opacity-50">{currentDate}</p>
             </div>
 
             {/* Navigation */}
+            <style>{`
+                @keyframes rgb-border-spin {
+                    0%   { background-position: 0% 50%; }
+                    50%  { background-position: 100% 50%; }
+                    100% { background-position: 0% 50%; }
+                }
+                .ai-nav-wrapper {
+                    position: relative;
+                    border-radius: 10px;
+                    padding: 1.5px;
+                    background: linear-gradient(135deg, #ff0080, #ff4500, #ffdd00, #00e0ff, #8b00ff, #ff0080);
+                    background-size: 300% 300%;
+                    animation: rgb-border-spin 3s linear infinite;
+                    box-shadow: 0 0 10px 1px rgba(139,0,255,0.35), 0 0 20px 2px rgba(0,224,255,0.15);
+                }
+                .ai-nav-inner {
+                    border-radius: 8px;
+                    overflow: hidden;
+                    background: #0a0a0a;
+                }
+                .ai-nav-inner a {
+                    display: flex;
+                    align-items: center;
+                    gap: 12px;
+                    padding: 8px 12px;
+                    font-size: 14px;
+                    font-weight: 500;
+                    text-decoration: none;
+                    transition: background 0.2s;
+                    color: #ffffff;
+                    background: transparent;
+                }
+                .ai-nav-inner a:hover {
+                    background: rgba(255,255,255,0.05);
+                }
+                .ai-nav-inner a.rgb-active {
+                    font-weight: 700;
+                    background: rgba(139,0,255,0.12);
+                }
+            `}</style>
             <nav className="flex-1 space-y-1">
                 {navItems.map((item) => {
                     const isActive = location.pathname === item.path;
                     const Icon = item.icon;
-                    return (
+                    const isAI = item.path === '/personal-ai';
+
+                    const linkEl = (
                         <Link
                             key={item.name}
                             to={item.path}
-                            className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${isActive ? 'font-bold' : ''}`}
-                            style={{
-                                backgroundColor: isActive ? 'var(--hover-bg)' : 'transparent',
-                                color: 'var(--text-color)'
-                            }}
+                            className={isAI ? (isActive ? 'rgb-active' : '') : `flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-white ${isActive ? 'font-bold bg-slate-900' : 'bg-transparent'}`}
                         >
                             <Icon size={18} className={isActive ? 'opacity-100' : 'opacity-70'} />
                             {item.name}
                         </Link>
                     );
+
+                    if (isAI) {
+                        return (
+                            <div key={item.name} className="ai-nav-wrapper">
+                                <div className="ai-nav-inner">
+                                    {linkEl}
+                                </div>
+                            </div>
+                        );
+                    }
+
+                    return linkEl;
                 })}
             </nav>
 

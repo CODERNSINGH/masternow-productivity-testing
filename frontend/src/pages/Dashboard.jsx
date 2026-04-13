@@ -20,7 +20,7 @@ const Dashboard = () => {
             const token = localStorage.getItem('token');
             if (token) setIsLoggedIn(true);
             if (!token) return;
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`http://localhost:5001/api/courses`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 if (data.length > 0) {
@@ -81,7 +81,7 @@ const Dashboard = () => {
         try {
             const token = localStorage.getItem('token');
             if (!token) return;
-            const res = await fetch(`https://masternow-productivity-testing.onrender.com/api/streak`, { headers: { 'Authorization': `Bearer ${token}` } });
+            const res = await fetch(`http://localhost:5001/api/streak`, { headers: { 'Authorization': `Bearer ${token}` } });
             if (res.ok) {
                 const data = await res.json();
                 setStreakCount(data.streakCount || 0);
@@ -136,7 +136,7 @@ const Dashboard = () => {
             });
 
             // API Call
-            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture/${lectureId}/complete`, {
+            await fetch(`http://localhost:5001/api/courses/lecture/${lectureId}/complete`, {
                 method: 'PATCH',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({ isCompleted: newStatus })
@@ -163,7 +163,7 @@ const Dashboard = () => {
             formData.append('file', file);
 
             // 1. Upload to drive
-            const uploadRes = await fetch(`https://masternow-productivity-testing.onrender.com/api/drive/upload-file`, {
+            const uploadRes = await fetch(`http://localhost:5001/api/drive/upload-file`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}` },
                 body: formData
@@ -172,7 +172,7 @@ const Dashboard = () => {
             const uploadData = await uploadRes.json();
 
             // 2. Create ad-hoc lecture
-            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture`, {
+            await fetch(`http://localhost:5001/api/courses/lecture`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -198,7 +198,7 @@ const Dashboard = () => {
         if (!linkInputUrl.trim() || !courseId) return;
         try {
             const token = localStorage.getItem('token');
-            await fetch(`https://masternow-productivity-testing.onrender.com/api/courses/lecture`, {
+            await fetch(`http://localhost:5001/api/courses/lecture`, {
                 method: 'POST',
                 headers: { 'Authorization': `Bearer ${token}`, 'Content-Type': 'application/json' },
                 body: JSON.stringify({
@@ -227,7 +227,7 @@ const Dashboard = () => {
                     {streakCount} Day Streak
                 </div>
                 <h1 className="text-4xl font-extrabold tracking-tight mb-3">{activeCourseTitle}</h1>
-                <p className="text-lg font-medium" style={{ opacity: 0.6 }}>Follow the path node by node.</p>
+                <p className="text-lg font-medium opacity-60">Follow the path node by node.</p>
             </div>
 
             {isLoading ? (
@@ -236,15 +236,15 @@ const Dashboard = () => {
                     Loading your journey...
                 </div>
             ) : !isLoggedIn ? (
-                <div className="flex justify-center flex-col items-center py-20 opacity-90 rounded-sm border shadow-sm" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                <div className="flex justify-center flex-col items-center py-20 opacity-90 rounded-sm border border-slate-800 shadow-sm bg-slate-950">
                     <h2 className="text-xl font-bold mb-2">Welcome to Masternow</h2>
                     <p className="mb-6 text-sm opacity-70">Please log in to view your courses and daily tasks.</p>
-                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'https://masternow-productivity-testing.onrender.com'}/auth/google?frontendUrl=${window.location.origin}`} className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
+                    <a href={`${import.meta.env.VITE_API_BASE_URL || 'http://localhost:5001'}/auth/google?frontendUrl=${window.location.origin}`} className="px-8 py-3 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-md shadow-lg hover:-translate-y-0.5 transition-transform flex items-center gap-2">
                         Log in with Google
                     </a>
                 </div>
             ) : courseDays.length === 0 ? (
-                <div className="flex justify-center flex-col items-center py-20 opacity-60 rounded-sm border" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                <div className="flex justify-center flex-col items-center py-20 opacity-60 rounded-sm border border-slate-800 bg-slate-950">
                     <p className="mb-4">You have no active courses scheduled.</p>
                     <Link to="/add-course" className="px-6 py-2 bg-black text-white dark:bg-white dark:text-black font-bold text-sm rounded-sm hover:scale-105 transition-transform">
                         Add a Course
@@ -268,9 +268,8 @@ const Dashboard = () => {
                                     <button
                                         onClick={() => day.isUnlocked && toggleDay(day.id)}
                                         disabled={!day.isUnlocked}
-                                        className={`flex flex-col items-center justify-center p-2 transition-transform cursor-pointer disabled:cursor-not-allowed z-20 hover:scale-105
+                                        className={`flex flex-col items-center justify-center p-2 transition-transform cursor-pointer disabled:cursor-not-allowed z-20 hover:scale-105 bg-slate-950
                                    ${!day.isUnlocked ? 'opacity-50' : ''}`}
-                                        style={{ backgroundColor: 'var(--component-bg)' }}
                                     >
                                         <div className={`w-14 h-14 rounded-full flex flex-col items-center justify-center shadow-md border-4 border-white dark:border-[#191919]
                                    ${day.isCompleted ? 'bg-black text-white dark:bg-white dark:text-black' :
@@ -289,9 +288,9 @@ const Dashboard = () => {
 
                                     {/* Content (Lectures) that expands immediately below the node, centered */}
                                     {isOpen && (
-                                        <div className="w-full mt-6 rounded-sm border shadow-xl p-2 relative z-10 mx-auto animate-in fade-in slide-in-from-top-4" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)', maxWidth: '42rem' }}>
+                                        <div className="w-full mt-6 rounded-sm border border-slate-800 shadow-xl p-2 relative z-10 mx-auto animate-in fade-in slide-in-from-top-4 bg-slate-950" style={{ maxWidth: '42rem' }}>
                                             {day.lectures.map((lecture, i) => (
-                                                <div key={lecture.id} className={`flex flex-col p-4 rounded-sm hover:bg-black/5 dark:hover:bg-white/5 group transition-colors ${i !== day.lectures.length - 1 ? 'border-b' : ''}`} style={{ borderColor: 'var(--border-color)' }}>
+                                                <div key={lecture.id} className={`flex flex-col p-4 rounded-sm hover:bg-black/5 dark:hover:bg-white/5 group transition-colors border-slate-800 ${i !== day.lectures.length - 1 ? 'border-b' : ''}`}>
 
                                                     <div className="flex gap-4 w-full">
                                                         {/* Checkbox */}
@@ -305,7 +304,7 @@ const Dashboard = () => {
                                                         </div>
 
                                                         {/* Thumbnail */}
-                                                        <div className="w-32 h-20 rounded-sm overflow-hidden shrink-0 relative shadow-sm border" style={{ backgroundColor: 'var(--component-bg)', borderColor: 'var(--border-color)' }}>
+                                                        <div className="w-32 h-20 rounded-sm overflow-hidden shrink-0 relative shadow-sm border border-slate-800 bg-slate-950">
                                                             <img src={lecture.thumbnail} alt={lecture.title} className="w-full h-full object-cover opacity-90 group-hover:opacity-100 transition-opacity" />
                                                             <div className="absolute bottom-1 right-1 bg-black/80 text-white text-[10px] font-mono px-1.5 py-0.5 rounded-sm backdrop-blur-sm">
                                                                 {lecture.duration}
@@ -330,9 +329,9 @@ const Dashboard = () => {
                                                                                                                     </div>
 
                                                                                                                     {/* Sample Notes Section */}
-                                                            <div className="mt-2 text-sm p-2 rounded-sm border line-clamp-2" style={{ backgroundColor: 'var(--bg-color)', borderColor: 'var(--border-color)', color: 'var(--text-color)' }}>
+                                                                <div className="mt-2 text-sm p-2 rounded-sm border border-slate-800 line-clamp-2 bg-black text-white">
                                                                 {lecture.notes ? (
-                                                                    <div className="flex items-center gap-2"><FileText size={14} className="opacity-70" /><strong className="font-medium" style={{ color: 'var(--text-color)' }}>Notes snippet:</strong> {lecture.notes}</div>
+                                                                    <div className="flex items-center gap-2"><FileText size={14} className="opacity-70" /><strong className="font-medium text-white">Notes snippet:</strong> {lecture.notes}</div>
                                                                 ) : (
                                                                     <span className="opacity-50 italic">No notes created yet. Watch the tutorial to add notes.</span>
                                                                 )}
@@ -344,7 +343,7 @@ const Dashboard = () => {
 
                                             {/* ADD CONTENT UI */}
                                             {addMenuOpenForDay === day.id ? (
-                                                <div className="flex gap-2 w-full justify-center px-4 py-3 border-t" style={{ borderColor: 'var(--border-color)' }}>
+                                                <div className="flex gap-2 w-full justify-center px-4 py-3 border-t border-slate-800">
                                                     <label className={`cursor-pointer px-3 py-1.5 text-xs font-bold bg-black text-white dark:bg-white dark:text-black rounded hover:opacity-80 transition-opacity ${uploadingDay === day.id ? 'opacity-50 cursor-not-allowed' : ''}`}>
                                                         {uploadingDay === day.id ? 'Saving to Drive...' : 'Upload File to Drive'}
                                                         <input type="file" className="hidden" disabled={uploadingDay === day.id} onChange={(e) => handleUploadAdHocFile(e, day)} />
@@ -362,8 +361,8 @@ const Dashboard = () => {
                                                     )}
                                                 </div>
                                             ) : (
-                                                <div className="px-4 py-3 border-t flex justify-center" style={{ borderColor: 'var(--border-color)' }}>
-                                                    <button onClick={() => setAddMenuOpenForDay(day.id)} className="flex items-center gap-2 text-sm font-bold tracking-wide" style={{ color: 'var(--text-color)', opacity: 0.7 }}>
+                                                <div className="px-4 py-3 border-t border-slate-800 flex justify-center">
+                                                    <button onClick={() => setAddMenuOpenForDay(day.id)} className="flex items-center gap-2 text-sm font-bold tracking-wide text-white opacity-70">
                                                         <Plus size={16} /> ADD CONTENT
                                                     </button>
                                                 </div>
@@ -375,7 +374,7 @@ const Dashboard = () => {
                         })}
 
                         {/* End of Thread cap */}
-                        <div className="w-3 h-3 rounded-full relative z-10 border-2" style={{ backgroundColor: 'var(--border-color)', borderColor: 'var(--component-bg)' }}></div>
+                        <div className="w-3 h-3 rounded-full relative z-10 border-2 border-slate-950 bg-slate-800"></div>
                     </div>
                 </>
             )}
