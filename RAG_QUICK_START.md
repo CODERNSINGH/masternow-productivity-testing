@@ -2,11 +2,11 @@
 
 ## ✅ What's Been Built
 
-### Backend (Node.js + Groq)
+### Backend (Node.js + )
 - [x] Prisma schema updated with RAG models (Document, DocumentChunk, Chat, Message)
 - [x] File parser utilities (PDF + Word extraction)
 - [x] RAG helper functions (chunking, retrieval, prompting)
-- [x] Groq API integration
+- [x]  API integration
 - [x] Complete Chat.js route with endpoints
 - [x] Authentication middleware integrated
 - [x] Error handling throughout
@@ -49,7 +49,7 @@ GOOGLE_CLIENT_SECRET=your_google_secret
 JWT_SECRET=your_secret
 GOOGLE_CALLBACK_URL=your_render_url/auth/google/callback
 FRONTEND_URL=https://masternow.in
-GROQ_API_KEY=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
+_API_KEY=
 ```
 
 ### Step 4: Frontend Update (Already Done)
@@ -77,7 +77,7 @@ GROQ_API_KEY=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
            │
            ├─→ File Parser (PDF/Word) ─→ Text Extraction
            ├─→ RAG Helper (Chunking)   ─→ Text Chunks
-           ├─→ Groq API               ─→ LLM Responses
+           ├─→  API               ─→ LLM Responses
            └─→ PostgreSQL             ─→ Data Storage
 ```
 
@@ -150,7 +150,7 @@ Message {
       [Document Context: Chunks 1-5]
       [User Question: What is...]
    ↓
-8. Calls Groq API
+8. Calls  API
    ↓
 9. Returns response with metadata
    ↓
@@ -178,7 +178,7 @@ d documents
 - Chunk overlap: 100 characters
 - Retrieval size: Top 5 chunks
 
-**Groq Settings**
+** Settings**
 - Model: mixtral-8x7b-32768
 - Temperature: 0.7
 - Max tokens: 1024
@@ -194,7 +194,7 @@ d documents
 ✅ Upload PDF files
 ✅ Upload Word documents
 ✅ Ask questions about documents
-✅ Get answers powered by Groq
+✅ Get answers powered by 
 ✅ View chat history
 ✅ Delete documents
 ✅ Voice recording (UI ready, backend processes text)
@@ -230,7 +230,7 @@ d documents
 | Issue | Fix |
 |-------|-----|
 | "Document processing failed" | Check file is valid PDF/Word, < 10MB |
-| "No Groq response" | Verify GROQ_API_KEY, check API status |
+| "No  response" | Verify _API_KEY, check API status |
 | "Authentication error" | Login again, check JWT token |
 | "Database error" | Run `npx prisma migrate dev` |
 | "File upload stuck" | Check file size, browser logs |
@@ -246,7 +246,7 @@ d documents
 
 The RAG system is fully functional:
 - ✅ Pure JavaScript/Node.js (no Python)
-- ✅ Groq LLM integration
+- ✅  LLM integration
 - ✅ Document upload & processing
 - ✅ Smart retrieval & context
 - ✅ Beautiful UI
